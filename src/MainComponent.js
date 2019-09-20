@@ -3,6 +3,23 @@ import { Navbar, Nav, NavItem, Card, Button, CardTitle, CardBody, Row, Col, Inpu
 
 class Main extends Component{
 
+	constructor(props){
+		super(props);
+
+		this.state = {
+			authorityPassword: '',
+			officialPassword: ''
+		}
+	}
+
+	handleAuthorityLogin(){
+
+	}
+
+	handleOfficialLogin(){
+		
+	}
+
 	render(){
 		return(
 			<React.Fragment>
@@ -23,15 +40,18 @@ class Main extends Component{
 								Central Authority Login
 							</CardTitle>
 							<CardBody>
-
 								<Row>
-									<Col className = "col-md-5 my-auto">
+									<Col className = "col-md-4 my-auto">
 										Enter Password : 
 									</Col>
-									<Col className = "col-md ">
-										<Input placeholder="Password" />
+									<Col className = "col-md">
+										<Input placeholder="Password" type="password" onChange={(event) => this.setState({authorityPassword: event.target.value})}/>
 									</Col>
-
+								</Row>
+								<Row style={{justifyContent: 'center'}} className="mt-3">
+									<Button style={{backgroundColor: "#1b5e20"}} onClick={this.handleAuthorityLogin}>
+										Login
+									</Button>
 								</Row>
 							</CardBody>
 						</Card>
@@ -43,21 +63,23 @@ class Main extends Component{
 								Government Official Login
 							</CardTitle>
 							<CardBody>
-
 								<Row>
-									<Col className = "col-md-5 my-auto">
+									<Col className = "col-md-4 my-auto">
 										Enter Password : 
 									</Col>
-									<Col className = "col-md ">
-										<Input placeholder="Password" />
+									<Col className = "col-md">
+										<Input placeholder="Password" type="password" onChange={(event) => this.setState({officialPassword: event.target.value})}/>
 									</Col>
-
+								</Row>
+								<Row style={{justifyContent: 'center'}} className="mt-3">
+									<Button style={{backgroundColor: "#1b5e20"}} onClick={this.handleOfficialLogin}>
+										Login
+									</Button>
 								</Row>
 							</CardBody>
 						</Card>
 					</Col>
 				</Row>
-
 			</React.Fragment>
 		);
 	}
