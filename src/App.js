@@ -16,6 +16,9 @@ class App extends Component {
         this.state = {
             account: '',
         }
+
+        this.authorityLogin = this.authorityLogin.bind(this);
+        this.officialLogin = this.officialLogin.bind(this);
     }
 
     componentDidMount(){
@@ -23,6 +26,7 @@ class App extends Component {
         // hash.update('hello');
         // console.log(hash.digest('hex'));
         this.loadBlockchainData();
+
     }
 
     async loadBlockchainData() {
@@ -31,7 +35,31 @@ class App extends Component {
         this.setState({account : accounts[0]});
         const kisaan = new web3.eth.Contract(KISAAN_ABI, KISAAN_ADDRESS);
         this.setState({kisaan});
+        console.log(kisaan.events.authorityLoginSuccessful);
         // this.addOfficial();
+        var authorityLoginEvent = this.state.kisaan.events.authorityLoginSuccessful();
+
+        authorityLoginEvent.on('authorityLoginSuccessful',(err, res) => {
+            console.log(res.args.success);
+        })
+    }
+
+    authorityLogin(password){
+        const hash = new Keccak(256);
+        hash.update(password);
+        this.state.kisaan.methods.ownerLogin(hash.digest('hex')).send({from: this.state.account})
+        .once('transactionHash', (transactionHash) => {
+            console.log(transactionHash);
+        })
+    }
+
+    officialLogin(password){
+        const hash = new Keccak(256);
+        hash.update(password);
+        this.state.kisaan.methods.ownerLogin(hash.digest('hex')).send({from: this.state.account})
+        .once('transactionHash', (transactionHash) => {
+            console.log(transactionHash);
+        })
     }
 
     addOfficial(){
@@ -43,8 +71,10 @@ class App extends Component {
     }
 
     render(){
+        
+
         return (
-            <Main />
+            <Main authorityLogin={this.authorityLogin} officialLogin={this.officialLogin}/>
         );
     }
 }

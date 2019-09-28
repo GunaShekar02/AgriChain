@@ -8,7 +8,7 @@ contract Kisaan{
     
     constructor() public{
         owner = msg.sender;
-        ownerPassword = '99c1c38eac834ff0739c6bef668c9d782515721acbd2be074e3c08ecc2d18277';
+        ownerPassword = 'b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b';
     }
     
     struct Farmer{
@@ -63,6 +63,18 @@ contract Kisaan{
         bool success
     );
 
+    event receivedGoodsSuccessful(
+        bool success
+    );
+
+    event addFarmerSuccessful(
+        bool success
+    );
+
+    event addOfficialSuccessful(
+        bool success
+    );
+
     function ownerLogin
         (string memory _password)
         validOfficial()
@@ -91,6 +103,7 @@ contract Kisaan{
         public
     {
         farmers[_farmerAddress].balance += amount;
+        emit receivedGoodsSuccessful(true);
     }
     
     function addFarmer
@@ -106,6 +119,7 @@ contract Kisaan{
                                     balance: 0,
                                     isVerified: true
                                 });
+        emit addFarmerSuccessful(true);
     }
     
     function addOfficial
@@ -121,6 +135,7 @@ contract Kisaan{
                                         isValidator: _isValidator,
                                         isVerified: true
                                     });
+        emit addOfficialSuccessful(true);
     }
     
 }
