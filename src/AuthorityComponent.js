@@ -4,6 +4,18 @@ import { Navbar, Nav, NavItem, Card, Button, CardTitle, CardBody, Row, Col, Inpu
 class Authority extends Component{
 	constructor(props){
 		super(props);
+		this.state = {
+			officialName: '',
+			officialAddress: '',
+			officialPassword: '',
+			isValidator: '',
+		};
+
+		this.registerOfficial = this.registerOfficial.bind(this);
+	}
+
+	registerOfficial(){
+		this.props.addOfficial(this.state.officialAddress, this.state.officialName, this.state.officialPassword, this.state.isValidator=='true' ? true : false);
 	}
 
 	render(){
