@@ -25,6 +25,7 @@ class App extends Component {
         this.authorityLogin = this.authorityLogin.bind(this);
         this.officialLogin = this.officialLogin.bind(this);
         this.addOfficial = this.addOfficial.bind(this);
+        this.addFarmer = this.addFarmer.bind(this);
     }
 
     componentDidMount(){
@@ -65,6 +66,7 @@ class App extends Component {
         .once('transactionHash', (transactionHash) => {
             console.log(transactionHash);
             this.setState({officialLoggedIn : true});
+            this.setState({officialPassword : hash.digest('hex')});
         })
         .catch(err => console.log("ERROR OCCURRED" + err));
     }
@@ -73,6 +75,16 @@ class App extends Component {
         const hash = new Keccak(256);
         hash.update(password);
         this.state.kisaan.methods.addOfficial(this.state.authorityPassword,address, name, hash.digest('hex'), isValidator).send({from: this.state.account})
+        .once('transactionHash', (transactionHash) => {
+            console.log(transactionHash);
+        })
+        .catch(err => console.log("ERROR OCCURRED" + err));
+    }
+
+    addFarmer(address,name,password){
+        const hash = new Keccak(256);
+        hash.update(password);
+        this.state.kisaan.methods.addFarmer(this.state.officialPassword,address, name, hash.digest('hex')).send({from: this.state.account})
         .once('transactionHash', (transactionHash) => {
             console.log(transactionHash);
         })
@@ -102,7 +114,7 @@ class App extends Component {
                 :
                 this.state.officialLoggedIn
                 ?
-                <Official />
+                <Official addFarmer = {this.addFarmer}/>
                 :
                 null
                 }

@@ -4,6 +4,17 @@ import { Navbar, Nav, NavItem, Card, Button, CardTitle, CardBody, Row, Col, Inpu
 class Official extends Component{
 	constructor(props){
 		super(props);
+		this.state = {
+			farmerName: '',
+			farmerAddress: '',
+			farmerPassword: '',
+		}
+
+		this.registerFarmer = this.registerFarmer.bind(this);
+	}
+
+	registerFarmer(){
+		this.props.addFarmer(this.state.farmerAddress, this.state.farmerName, this.state.farmerPassword);
 	}
 
 	render(){
