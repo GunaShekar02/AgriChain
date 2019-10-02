@@ -30,13 +30,14 @@ contract Kisaan{
     mapping (address => Farmer) farmers;
     mapping (address => Offical) officials;
     
-    modifier onlyOfficial(){
-        require(officials[msg.sender].isVerified);
+    modifier onlyOfficial(string memory _password){
+        require(officials[msg.sender].isVerified && keccak256(bytes(_password)) == keccak256(bytes(officials[msg.sender].password)));
         _;
     }
     
-    modifier validOfficial(){
-        require(msg.sender == owner || officials[msg.sender].isValidator);
+    modifier validOfficial(string memory _password){
+        require((msg.sender == owner && keccak256(bytes(ownerPassword)) == keccak256(bytes(_password)))
+            || (officials[msg.sender].isValidator && keccak256(bytes(officials[msg.sender].password)) == keccak256(bytes(_password))));
         _;
     }
     
@@ -44,6 +45,8 @@ contract Kisaan{
         require(farmers[_farmerAddress].isVerified);
         _;
     }
+
+    
     
     modifier notAlreadyRegisteredFarmer(address _farmerAddress){
         require(!farmers[_farmerAddress].isVerified);
@@ -55,60 +58,54 @@ contract Kisaan{
         _;
     }
 
-    event authorityLoginSuccessful(
-        bool success
-    );
+    // event authorityLoginSuccessful(
+    //     bool success
+    // );
 
-    event officialLoginSuccessful(
-        bool success
-    );
+    // event officialLoginSuccessful(
+    //     bool success
+    // );
 
-    event receivedGoodsSuccessful(
-        bool success
-    );
+    // event receivedGoodsSuccessful(
+    //     bool success
+    // );
 
-    event addFarmerSuccessful(
-        bool success
-    );
+    // event addFarmerSuccessful(
+    //     bool success
+    // );
 
-    event addOfficialSuccessful(
-        bool success
-    );
+    // event addOfficialSuccessful(
+    //     bool success
+    // );
 
     function ownerLogin
         (string memory _password)
-        validOfficial()
+        validOfficial(_password) 
         public
     {
-        if(keccak256(bytes(ownerPassword)) == keccak256(bytes(_password)))
-            emit authorityLoginSuccessful(true);
-        else
-            emit authorityLoginSuccessful(false);
+        
     }
 
     function officialLogin
         (string memory _password)
-        onlyOfficial()
+        onlyOfficial(_password)
         public
     {
-        if(keccak256(bytes(officials[msg.sender].password)) == keccak256(bytes(_password)))
-            emit officialLoginSuccessful(true);
-        else
-            emit officialLoginSuccessful(false);
+        
     }
     
     function receivedGoods
-        (address _farmerAddress, uint amount) 
-        onlyOfficial() validFarmer(_farmerAddress) 
+        (string memory _password, address _farmerAddress, uint amount) 
+        onlyOfficial(_password) validFarmer(_farmerAddress) 
         public
     {
         farmers[_farmerAddress].balance += amount;
-        emit receivedGoodsSuccessful(true);
+        // emit receivedGoodsSuccessful(true);
     }
     
     function addFarmer
-        (address _farmerAddress, string memory _name, string memory _password) 
-        onlyOfficial() notAlreadyRegisteredFarmer(_farmerAddress) 
+        (string memory _officialPassword, address _farmerAddress, string memory _name, string memory _password) 
+        onlyOfficial(_officialPassword) notAlreadyRegisteredFarmer(_farmerAddress) 
         public
     {
         farmerCount++;
@@ -119,12 +116,12 @@ contract Kisaan{
                                     balance: 0,
                                     isVerified: true
                                 });
-        emit addFarmerSuccessful(true);
+        // emit addFarmerSuccessful(true);
     }
     
     function addOfficial
-        (address _officialAddress, string memory _name, string memory _password, bool _isValidator)
-        validOfficial() notAlreadyRegisteredOfficial(_officialAddress)
+        (string memory _officialPassword, address _officialAddress, string memory _name, string memory _password, bool _isValidator)
+        validOfficial(_officialPassword) notAlreadyRegisteredOfficial(_officialAddress)
         public 
     {
         officialCount++;  
@@ -135,7 +132,7 @@ contract Kisaan{
                                         isValidator: _isValidator,
                                         isVerified: true
                                     });
-        emit addOfficialSuccessful(true);
+        // emit addOfficialSuccessful(true);
     }
     
 }
