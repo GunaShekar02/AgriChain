@@ -41,8 +41,8 @@ contract Kisaan{
         _;
     }
     
-    modifier validFarmer(address _farmerAddress){
-        require(farmers[_farmerAddress].isVerified);
+    modifier validFarmer(address _farmerAddress, string memory _password){
+        require(farmers[_farmerAddress].isVerified && keccak256(bytes(farmers[_farmerAddress].password)) == keccak256(bytes(_password)));
         _;
     }
 
@@ -71,7 +71,7 @@ contract Kisaan{
     // );
 
     // event addFarmerSuccessful(
-    //     bool success
+    //     string name
     // );
 
     // event addOfficialSuccessful(
@@ -93,13 +93,22 @@ contract Kisaan{
     {
         
     }
+
+    function deposit() payable public {
+    }
+
+    function withdraw (address payable _farmerAddress) public {
+        _farmerAddress.transfer(address(this).balance);
+    }
     
     function receivedGoods
-        (string memory _password, address _farmerAddress, uint amount) 
-        onlyOfficial(_password) validFarmer(_farmerAddress) 
-        public
+        (string memory _password, string memory _farmerPassword, address payable _farmerAddress, uint amount) 
+        onlyOfficial(_password) validFarmer(_farmerAddress, _farmerPassword) 
+         public
     {
         farmers[_farmerAddress].balance += amount;
+        withdraw(_farmerAddress);
+        // _farmerAddress.transfer(address(this).balance);
         // emit receivedGoodsSuccessful(true);
     }
     
@@ -116,7 +125,7 @@ contract Kisaan{
                                     balance: 0,
                                     isVerified: true
                                 });
-        // emit addFarmerSuccessful(true);
+        // emit addFarmerSuccessful(farmers[_farmerAddress].name);
     }
     
     function addOfficial

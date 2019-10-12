@@ -40,9 +40,38 @@ export const KISAAN_ABI = [
     },
     {
       "constant": false,
+      "inputs": [],
+      "name": "deposit",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function",
+      "signature": "0xd0e30db0"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_farmerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x51cff8d9"
+    },
+    {
+      "constant": false,
       "inputs": [
         {
           "name": "_password",
+          "type": "string"
+        },
+        {
+          "name": "_farmerPassword",
           "type": "string"
         },
         {
@@ -59,7 +88,7 @@ export const KISAAN_ABI = [
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0xc603104f"
+      "signature": "0x881f1f21"
     },
     {
       "constant": false,

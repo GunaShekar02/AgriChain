@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, Card, Button, CardTitle, CardBody, Row, Col, Input } from 'reactstrap';
+import { Navbar, Nav, NavItem, Card, Button, CardTitle, CardBody, Row, Col, Input, Label, Form, FormGroup } from 'reactstrap';
 
 class Login extends Component{
 	constructor(props){
@@ -11,7 +11,9 @@ class Login extends Component{
 
 		this.handleAuthorityLogin = this.handleAuthorityLogin.bind(this);
 		this.handleOfficialLogin = this.handleOfficialLogin.bind(this);
+		// this.changedState = this.changedState.bind(this);
 	}
+
 
 	handleAuthorityLogin(){
 		this.props.authorityLogin(this.state.authorityPassword);
@@ -22,9 +24,10 @@ class Login extends Component{
 	}
 
 	render(){
+
 		return(
 			<React.Fragment>
-				<Row style={{ marginTop: "30vh"}}>
+				<Row style={{ marginTop: "25vh"}}>
 					<Col className="col-md-5 mx-5">
 						<Card style={{borderColor: "black", borderWidth: "3px"}}>
 							<CardTitle className="text-center" style={{backgroundColor: "#1b5e20", color: 'white', fontSize: 30}}>
@@ -71,6 +74,7 @@ class Login extends Component{
 						</Card>
 					</Col>
 				</Row>
+				
 			</React.Fragment>
 		);
 	}

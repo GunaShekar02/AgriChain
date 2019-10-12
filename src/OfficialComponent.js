@@ -8,13 +8,21 @@ class Official extends Component{
 			farmerName: '',
 			farmerAddress: '',
 			farmerPassword: '',
+			payAddress: '',
+			payPassword: '',
+			payAmount: '',
 		}
 
 		this.registerFarmer = this.registerFarmer.bind(this);
+		this.payFarmer = this.payFarmer.bind(this);
 	}
 
 	registerFarmer(){
 		this.props.addFarmer(this.state.farmerAddress, this.state.farmerName, this.state.farmerPassword);
+	}
+
+	payFarmer(){
+		this.props.payFarmer(this.state.payAddress, this.state.payPassword, this.state.payAmount);
 	}
 
 	render(){
