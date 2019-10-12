@@ -180,13 +180,9 @@ class App extends Component {
                                 About Jai Kisaan
                             </CardTitle>
                             <CardBody>
-                                Jai Kisaan is an effort to make the best use of the 2 of the most world-changing technologies, viz., Machine Learning
-                                and Blockchain to enhance the lives of farmers.
+                                Jai Kisaan is an effort to make the best use of the Blockchain Technology to enhance the lives of farmers.
                                 <br /><br />
-                                We use Machine Learning to predict the crop which would have the highest selling price given your location
-                                and month.
-                                <br /><br />
-                                We extend this project using Blockchain to carry forward the supply chain, to help farmers receive all the revenue they
+                                We use Blockchain to manage the agricultural supply chain, to help farmers receive all the revenue they
                                 are supposed to receive instead of those funds being stolen by middlemen.
                             </CardBody>
                         </Card>
