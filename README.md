@@ -1,7 +1,7 @@
-# JAI KISAAN
+# AGRICHAIN
 
 ## About
-Jai Kisaan is an effort to make the best use of the Blockchain Technology to enhance the lives of farmers. We use Blockchain to manage the agricultural supply chain, to help farmers receive all the revenue they are supposed to receive instead of those funds being stolen by middlemen.
+AgriChain is an effort to make the best use of the Blockchain Technology to enhance the lives of farmers. We use Blockchain to manage the agricultural supply chain, to help farmers receive all the revenue they are supposed to receive instead of those funds being stolen by middlemen.
 
 ## Tech Stack
 Solidity, React.js, Truffle Framework, Metamask.
